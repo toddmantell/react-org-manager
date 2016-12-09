@@ -4,12 +4,13 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import AddOrgForm from './AddOrgForm';
 import {browserHistory} from 'react-router';
+import toastr from 'toastr';
 
 class AddOrgPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = {org: {orgId: this.props.orgs.length + 1, orgFullName: "", orgShortName: "", isActive: false}};
+        this.state = {org: {orgId: 0, orgFullName: "", orgShortName: "", isActive: false}};
         this.updateOrgState = this.updateOrgState.bind(this);
         this.onSave = this.onSave.bind(this);
     }
@@ -29,10 +30,24 @@ class AddOrgPage extends React.Component {
     onSave(event) {
         event.preventDefault();
 
-        this.props.dispatch(orgActions.addNewOrg(this.state.org));
-        this.redirect();
+        let {org} = this.state;
+
+        if (org.orgFullName && org.orgShortName) {
+
+            this.props.actions.addNewOrgAsync(org)
+                .then(() => {//thunks can return a promise
+                    this.redirect(org.orgShortName);
+                })
+                .catch(error => {
+                    toastr.error(error);
+                });               
+        }
+        else {
+            toastr.error("please fill out all fields");
+        }
     }
-    redirect() {
+    redirect(shortName) {        
+        toastr.success(`New Org ${shortName} Added`);
         browserHistory.push('/orgs');
     }
     render() {
@@ -51,10 +66,10 @@ function mapStatetoProps(state, ownProps) {
     };
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         addNewOrg: dispatch(addNewOrg)
-//     };
-// }
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(orgActions, dispatch)
+    };
+}
 
-export default connect(mapStatetoProps)(AddOrgPage);
+export default connect(mapStatetoProps, mapDispatchToProps)(AddOrgPage);

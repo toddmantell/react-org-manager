@@ -1,6 +1,8 @@
 import * as types from './actionTypes';
-import orgs from '../orgsData.js';
+//import orgs from '../orgsData.js';//only used for loading directly from orgsData.js
+import OrgsApi from '../mockAPI/orgsApi.js';
 
+//Action Creators
 export const addNewOrg = (org) => {
     return {
         type: types.ADD_ORG,
@@ -15,14 +17,35 @@ export const updateOrg = (org) => {
     }
 }
 
-export const loadOrgs = () => {
+export const loadOrgs = () => {//used with the synchronous loading of orgs into the store
     return {type: types.LOAD_ORGS, orgs};
 }
 
-// export const addOrgToOrgs = (newOrg) => {
-//     dispatch(addNewOrg(newOrg));
-// }
+export const loadOrgsSuccess = (orgs) => {
+    return {type: types.LOAD_ORGS, orgs};
+}
+//END Action Creators
 
-// export const updateOrgInOrgs = (updatedOrg) => {
-//     dispatch(updateOrg(updatedOrg));
-// }
+//THUNKs
+export const loadOrgsAsync = () => {
+    return function(dispatch) {
+        return OrgsApi.getAllOrgs().then(orgs => {
+            dispatch(loadOrgsSuccess(orgs));
+        })
+        .catch(error => {throw(error)});
+    }
+}
+
+export const addNewOrgAsync = (org) => {
+    return function (dispatch) {
+        return OrgsApi.addOrg(org).then((newOrg) => {
+            dispatch(addNewOrg(newOrg));
+        }).catch((error) => {throw(error)});
+    }
+}
+
+export const updateOrgAsync = (org) => {
+    return function(dispatch) {
+        return OrgsApi.updateOrg(org).then(() => {}).catch(()=>{});//finish writing
+    }
+} 

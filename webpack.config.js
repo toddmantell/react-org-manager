@@ -5,6 +5,7 @@ module.exports = {
         filename: 'index.js'
     },
     devServer: {
+        historyApiFallback: true,//added so that the app will reload the page on refresh (otherwise gives an error/404)
         inline: true,
         port: 3333
     },
