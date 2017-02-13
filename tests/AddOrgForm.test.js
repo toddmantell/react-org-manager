@@ -13,14 +13,14 @@ function setup() {
     return shallow(<AddOrgForm {...props} />);
 }
 
-describe('Add Org Form Tests', () => {
+describe('Add Org Form', () => {
     const wrapper = setup();
     
-    it('renders a form tag', () => {        
+    it('should render a form tag', () => {        
         expect(wrapper.find('form').length).toBe(1);
     });
 
-    it('finds the correct number of TextBox Components', () => {
+    it('should find the correct number of TextBox Components', () => {
         expect(wrapper.find('TextBox').length).toBe(2);
     });
 })

@@ -6,7 +6,7 @@ import AddOrgForm from './AddOrgForm';
 import {browserHistory} from 'react-router';
 import toastr from 'toastr';
 
-class AddOrgPage extends React.Component {
+export class AddOrgPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 

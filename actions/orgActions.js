@@ -17,7 +17,7 @@ export const updateOrg = (org) => {
     }
 }
 
-export const loadOrgs = () => {//used with the synchronous loading of orgs into the store
+export const loadOrgs = (orgs) => {//used with the synchronous loading of orgs into the store
     return {type: types.LOAD_ORGS, orgs};
 }
 
