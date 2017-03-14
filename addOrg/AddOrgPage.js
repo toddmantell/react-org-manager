@@ -10,7 +10,7 @@ export class AddOrgPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = {org: {orgId: 0, orgFullName: "", orgShortName: "", isActive: false}};
+        this.state = {org: {orgFullName: "", orgShortName: "", isActive: false}};
         this.updateOrgState = this.updateOrgState.bind(this);
         this.onSave = this.onSave.bind(this);
     }
@@ -46,7 +46,8 @@ export class AddOrgPage extends React.Component {
             toastr.error("please fill out all fields");
         }
     }
-    redirect(shortName) {        
+    redirect(shortName) {
+        this.props.actions.loadOrgsAsync();
         toastr.success(`New Org ${shortName} Added`);
         browserHistory.push('/orgs');
     }

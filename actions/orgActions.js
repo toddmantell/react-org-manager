@@ -27,20 +27,46 @@ export const loadOrgsSuccess = (orgs) => {
 //END Action Creators
 
 //THUNKs
+
+//Using Mock API: export const loadOrgsAsync = () => {
+//     return function(dispatch) {
+//         return OrgsApi.getAllOrgs().then(orgs => {
+//             dispatch(loadOrgsSuccess(orgs));
+//         })
+//         .catch(error => {throw(error)});
+//     }
+// }
+
 export const loadOrgsAsync = () => {
     return function(dispatch) {
-        return OrgsApi.getAllOrgs().then(orgs => {
+        return fetch('http://localhost:8080/orgs')
+            .then(response => response.json())
+            .then(orgs => {
             dispatch(loadOrgsSuccess(orgs));
-        })
-        .catch(error => {throw(error)});
+            })
+            .catch(error => {throw(error)});
     }
 }
 
+// export const addNewOrgAsync = (org) => {
+//     return function (dispatch) {
+//         return OrgsApi.addOrg(org).then((newOrg) => {
+//             dispatch(addNewOrg(newOrg));
+//         }).catch((error) => {throw(error)});
+//     }
+// }
+
 export const addNewOrgAsync = (org) => {
     return function (dispatch) {
-        return OrgsApi.addOrg(org).then((newOrg) => {
-            dispatch(addNewOrg(newOrg));
-        }).catch((error) => {throw(error)});
+        return fetch('http://localhost:8080/orgs',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(org)
+        }).then(response => response.json())
+        .catch(error => {throw(error)});
     }
 }
 

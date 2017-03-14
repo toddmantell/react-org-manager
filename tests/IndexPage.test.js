@@ -9,10 +9,10 @@ function setup() {
     return shallow(<IndexPage />);
 }
 
-describe('IndexPage Unit Tests', () => {
+describe('IndexPage', () => {
     const wrapper = setup();
 
-    it('renders col-md-6 in two divs', () => {
+    it('should render col-md-6 in two divs', () => {
         expect(wrapper.find('div.col-md-6').length).toBe(2);    
     });
 });

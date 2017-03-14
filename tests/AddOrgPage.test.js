@@ -10,7 +10,7 @@ function setup() {
         {"orgId": 2, "orgFullName": "Great State Healthsystem", "orgShortName": "Great State", "isActive": false}]
     }
 
-    return mount(<AddOrgPage />);
+    return mount(<AddOrgPage {...props} />);
 
     //return shallow(<AddOrgPage />);
 }
@@ -26,4 +26,7 @@ describe('Add Org Page', () => {
         expect(wrapper.find('form').length).toBe(1);
     });
 
+    // it('should have the correct props', () => {
+    //     expect(wrapper.props.orgs.length).toBe(2);
+    // });
 })

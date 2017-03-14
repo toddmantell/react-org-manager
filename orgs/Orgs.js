@@ -9,8 +9,8 @@ class OrgsPage extends React.Component {
         this.iterate = this.iterate.bind(this);
     }
     iterate(item) {
-        return (<tr key = {item.orgId}>
-                    <td>{item.orgId}</td>
+        return (<tr key = {item.id}>
+                    <td>{item.id}</td>
                     <td>{item.orgFullName}</td>
                     <td>{item.orgShortName}</td>
                     <td>{item.isActive.toString().toUpperCase()}</td>

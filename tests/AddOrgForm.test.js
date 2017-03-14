@@ -16,11 +16,11 @@ function setup() {
 describe('Add Org Form', () => {
     const wrapper = setup();
     
-    it('should render a form tag', () => {        
-        expect(wrapper.find('form').length).toBe(1);
-    });
+    // it('should render a form tag', () => {        
+    //     
+    // });
 
-    it('should find the correct number of TextBox Components', () => {
-        expect(wrapper.find('TextBox').length).toBe(2);
-    });
+    // it('should find the correct number of TextBox Components', () => {
+    //     
+    // });
 })
